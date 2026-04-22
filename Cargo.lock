@@ -3,5 +3,37 @@
 version = 4
 
 [[package]]
-name = "RustyChess"
+name = "bot-runner"
+version = "0.1.0"
+
+[[package]]
+name = "chess-bot"
+version = "0.1.0"
+
+[[package]]
+name = "chess-core"
+version = "0.1.0"
+
+[[package]]
+name = "chess-engine"
+version = "0.1.0"
+
+[[package]]
+name = "chess-ml"
+version = "0.1.0"
+
+[[package]]
+name = "chess-uci"
+version = "0.1.0"
+
+[[package]]
+name = "engine-cli"
+version = "0.1.0"
+
+[[package]]
+name = "gui-app"
+version = "0.1.0"
+
+[[package]]
+name = "trainer-cli"
 version = "0.1.0"
