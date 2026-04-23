@@ -190,3 +190,32 @@ impl fmt::Display for Piece {
     write!(f, "{}", self.fen_char())
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn bb_indices_are_unique() {
+    let mut seen = [false; 12];
+    for p in Piece::ALL {
+      let idx = p.bb_index();
+      assert!(!seen[idx], "duplicate bb_index for {:?}", p);
+      seen[idx] = true;
+    }
+  }
+
+  #[test]
+  fn fen_roundtrip() {
+    for p in Piece::ALL {
+      let back = Piece::from_fen_char(p.fen_char()).unwrap();
+      assert_eq!(p, back);
+    }
+  }
+
+  #[test]
+  fn color_flip() {
+    assert_eq!(Color::White.flip(), Color::Black);
+    assert_eq!(Color::Black.flip(), Color::White);
+  }
+}
