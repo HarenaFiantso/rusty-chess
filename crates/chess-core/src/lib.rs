@@ -1,14 +1,11 @@
-pub fn subtract(left: u64, right: u64) -> u64 {
-  left - right
-}
+//! # chess-core
+//!
+//! The foundation of the RustyChess engine.
+//! This crate is dependency-free and contains everything needed to represent,
+//! parse, and hash a chess position:
 
-#[cfg(test)]
-mod tests {
-  use super::*;
+#![warn(clippy::pedantic)]
+#![allow(clippy::module_name_repetitions)]
+pub mod bitboard;
 
-  #[test]
-  fn it_works() {
-    let result = subtract(2, 2);
-    assert_eq!(result, 0);
-  }
-}
+pub use bitboard::Bitboard;
