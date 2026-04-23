@@ -12,4 +12,4 @@ pub mod piece;
 
 pub use bitboard::Bitboard;
 pub use square::{File, Rank, Square};
-pub use piece::{Color};
+pub use piece::{Color, PieceType};

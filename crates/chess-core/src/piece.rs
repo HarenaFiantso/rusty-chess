@@ -47,3 +47,75 @@ impl fmt::Display for Color {
     }
   }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[repr(u8)]
+pub enum PieceType {
+  Pawn = 0,
+  Knight = 1,
+  Bishop = 2,
+  Rook = 3,
+  Queen = 4,
+  King = 5,
+}
+
+impl PieceType {
+  #[inline(always)]
+  pub const fn index(self) -> usize {
+    self as usize
+  }
+
+  #[inline(always)]
+  pub const fn bb_index(self, color: Color) -> usize {
+    self.index() + color.index() * 6
+  }
+
+  pub const fn fen_char(self) -> char {
+    match self {
+      PieceType::Pawn => 'P',
+      PieceType::Knight => 'N',
+      PieceType::Bishop => 'B',
+      PieceType::Rook => 'R',
+      PieceType::Queen => 'Q',
+      PieceType::King => 'K',
+    }
+  }
+
+  pub const fn value(self) -> i32 {
+    match self {
+      PieceType::Pawn => 100,
+      PieceType::Knight => 320,
+      PieceType::Bishop => 330,
+      PieceType::Rook => 500,
+      PieceType::Queen => 900,
+      PieceType::King => 20000,
+    }
+  }
+
+  pub fn from_fen_char(c: char) -> Option<Self> {
+    match c.to_ascii_uppercase() {
+      'P' => Some(PieceType::Pawn),
+      'N' => Some(PieceType::Knight),
+      'B' => Some(PieceType::Bishop),
+      'R' => Some(PieceType::Rook),
+      'Q' => Some(PieceType::Queen),
+      'K' => Some(PieceType::King),
+      _ => None,
+    }
+  }
+
+  pub const ALL: [PieceType; 6] = [
+    PieceType::Pawn,
+    PieceType::Knight,
+    PieceType::Bishop,
+    PieceType::Rook,
+    PieceType::Queen,
+    PieceType::King,
+  ];
+}
+
+impl fmt::Display for PieceType {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(f, "{}", self.fen_char())
+  }
+}
