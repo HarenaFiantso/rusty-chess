@@ -8,6 +8,8 @@
 #![allow(clippy::module_name_repetitions)]
 pub mod bitboard;
 pub mod square;
+pub mod piece;
 
 pub use bitboard::Bitboard;
 pub use square::{File, Rank, Square};
+pub use piece::{Color};
