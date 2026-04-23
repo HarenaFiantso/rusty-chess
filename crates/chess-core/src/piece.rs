@@ -119,3 +119,74 @@ impl fmt::Display for PieceType {
     write!(f, "{}", self.fen_char())
   }
 }
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct Piece {
+  pub piece_type: PieceType,
+  pub color: Color,
+}
+
+impl Piece {
+  #[inline(always)]
+  pub const fn new(piece_type: PieceType, color: Color) -> Self {
+    Piece { piece_type, color }
+  }
+
+  pub const WHITE_PAWN: Piece = Piece::new(PieceType::Pawn, Color::White);
+  pub const WHITE_KNIGHT: Piece = Piece::new(PieceType::Knight, Color::White);
+  pub const WHITE_BISHOP: Piece = Piece::new(PieceType::Bishop, Color::White);
+  pub const WHITE_ROOK: Piece = Piece::new(PieceType::Rook, Color::White);
+  pub const WHITE_QUEEN: Piece = Piece::new(PieceType::Queen, Color::White);
+  pub const WHITE_KING: Piece = Piece::new(PieceType::King, Color::White);
+
+  pub const BLACK_PAWN: Piece = Piece::new(PieceType::Pawn, Color::Black);
+  pub const BLACK_KNIGHT: Piece = Piece::new(PieceType::Knight, Color::Black);
+  pub const BLACK_BISHOP: Piece = Piece::new(PieceType::Bishop, Color::Black);
+  pub const BLACK_ROOK: Piece = Piece::new(PieceType::Rook, Color::Black);
+  pub const BLACK_QUEEN: Piece = Piece::new(PieceType::Queen, Color::Black);
+  pub const BLACK_KING: Piece = Piece::new(PieceType::King, Color::Black);
+
+  #[inline(always)]
+  pub const fn bb_index(self) -> usize {
+    self.piece_type.bb_index(self.color)
+  }
+
+  pub fn fen_char(self) -> char {
+    let c = self.piece_type.fen_char();
+    if self.color == Color::Black {
+      c.to_ascii_lowercase()
+    } else {
+      c
+    }
+  }
+
+  pub fn from_fen_char(c: char) -> Option<Self> {
+    let color = if c.is_uppercase() {
+      Color::White
+    } else {
+      Color::Black
+    };
+    PieceType::from_fen_char(c).map(|pt| Piece::new(pt, color))
+  }
+
+  pub const ALL: [Piece; 12] = [
+    Piece::WHITE_PAWN,
+    Piece::WHITE_KNIGHT,
+    Piece::WHITE_BISHOP,
+    Piece::WHITE_ROOK,
+    Piece::WHITE_QUEEN,
+    Piece::WHITE_KING,
+    Piece::BLACK_PAWN,
+    Piece::BLACK_KNIGHT,
+    Piece::BLACK_BISHOP,
+    Piece::BLACK_ROOK,
+    Piece::BLACK_QUEEN,
+    Piece::BLACK_KING,
+  ];
+}
+
+impl fmt::Display for Piece {
+  fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    write!(f, "{}", self.fen_char())
+  }
+}
