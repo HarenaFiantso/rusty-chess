@@ -7,5 +7,7 @@
 #![warn(clippy::pedantic)]
 #![allow(clippy::module_name_repetitions)]
 pub mod bitboard;
+pub mod square;
 
 pub use bitboard::Bitboard;
+pub use square::{File, Rank, Square};
